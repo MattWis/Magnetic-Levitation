@@ -22,19 +22,8 @@ uint8_t counter = 0;
 uint8_t duty_cycle = 32;
 
 void loop() {
-  ////////////////////////////////////////////
   sensorValue = analogRead(sensorPin);
   Serial.print("Sensor voltage: "); Serial.println(sensorValue);
-  ////////////////////////////////////////////
-//  Serial.println(duty_cycle);
-//  OCR0B = duty_cycle++;
-//  if (duty_cycle == 255) {
-//    duty_cycle = 32;
-//  }
-//  delay(10 * 64);
-  ////////////////////////////////////////////
-  OCR0B = 150;
-  ////////////////////////////////////////////
-//  OCR0B = MID_PWM + ((GOAL_VALUE - sensorValue) * KP);
-  ////////////////////////////////////////////
+
+  OCR0B = MID_PWM + ((GOAL_VALUE - sensorValue) * KP);
 }
