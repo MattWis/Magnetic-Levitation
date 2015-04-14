@@ -27,15 +27,9 @@ void loop() {
   error = GOAL_VALUE - sensor_value;
   // Serial.print("Sensor voltage: "); Serial.println(sensor_value);  // Uncomment for debugging
 
-  // Lead compensation for 50 rad/s hump at 0.001 sampling period
-  output = 9.341 * error - 9.194 * last_error + 0.8535 * last_output;
-//  OCR0B = MID_PWM + output;
-  if (test_output) {
-    test_output = 0;
-  } else {
-    test_output = 255;
-  }
-  OCR0B = test_output;
+  // Lead compensation for 600 rad/s hump at 0.0002 sampling period
+  output = 856.5 * error - 824.6 * last_error + 0.681 * last_output;
+  OCR0B = MID_PWM + output;
 
   last_error = error;
   last_output = output;
