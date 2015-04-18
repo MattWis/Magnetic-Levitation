@@ -1,6 +1,5 @@
-#define GOAL_VALUE 410
-#define MID_PWM 192
-#define KP 10
+#define GOAL_VALUE 258
+#define MID_PWM 210
 
 int sensor_pin = A0;
 int sensor_value = 385;
@@ -24,11 +23,12 @@ void setup() {
 
 void loop() {
   sensor_value = analogRead(sensor_pin);
-  error = GOAL_VALUE - sensor_value;
+  error = GOAL_VALUE + sensor_value;
   // Serial.print("Sensor voltage: "); Serial.println(sensor_value);  // Uncomment for debugging
 
-  // Lead compensation for 600 rad/s hump at 0.0002 sampling period
-  output = 856.5 * error - 824.6 * last_error + 0.681 * last_output;
+  // Lead compensation hump at 0.0002 sampling period
+//output =  (1) * error -   (2) * last_error +  (3) * last_output;
+  output = 305.8 * error - 303.5 * last_error + 0.9269 * last_output;
   OCR0B = MID_PWM + output;
 
   last_error = error;
