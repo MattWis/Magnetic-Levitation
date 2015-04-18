@@ -6,6 +6,7 @@ int sensor_value = 385;
 int error = 0;
 int last_error = 0;  // Will be used for lead compensation
 int output = 0;
+int pwm_value = 0;
 int last_output = 0;  // Will be used for lead compensation
 uint8_t test_output = 0;  // For testing loop cycle time
 
@@ -23,13 +24,24 @@ void setup() {
 
 void loop() {
   sensor_value = analogRead(sensor_pin);
-  error = GOAL_VALUE + sensor_value;
-  // Serial.print("Sensor voltage: "); Serial.println(sensor_value);  // Uncomment for debugging
+  error = sensor_value - GOAL_VALUE;
 
   // Lead compensation hump at 0.0002 sampling period
 //output =  (1) * error -   (2) * last_error +  (3) * last_output;
-  output = 305.8 * error - 303.5 * last_error + 0.9269 * last_output;
-  OCR0B = MID_PWM + output;
+  output = 152.9 * error - 151.8 * last_error + 0.9269 * last_output;
+  pwm_value = MID_PWM + output;
+  if (pwm_value > 255) {
+    OCR0B = 255;
+  } else if (pwm_value < 0) {
+    OCR0B = 0;
+  } else {
+    OCR0B = pwm_value;
+  }
+
+//  Serial.print("Sensor voltage: "); Serial.println(sensor_value);  // Uncomment for debugging
+//  Serial.print("output: "); Serial.println(output);  // Uncomment for debugging
+//  Serial.print("PWM Value: "); Serial.println(pwm_value);  // Uncomment for debugging
+//  Serial.println();
 
   last_error = error;
   last_output = output;
