@@ -1,4 +1,4 @@
-#define GOAL_VALUE 258
+#define GOAL_VALUE 409
 #define MID_PWM 210
 
 int sensor_pin = A0;
@@ -28,7 +28,7 @@ void loop() {
 
   // Lead compensation hump at 0.0002 sampling period
 //output =  (1) * error -   (2) * last_error +  (3) * last_output;
-  output = 152.9 * error - 151.8 * last_error + 0.9269 * last_output;
+  output = 9.671 * error - 9.598 * last_error + 0.9269 * last_output;
   pwm_value = MID_PWM + output;
   if (pwm_value > 255) {
     OCR0B = 255;
