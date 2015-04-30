@@ -1,4 +1,3 @@
-//#define GOAL_VALUE 409  // 409 has been double checked as a goal value. It is shadow 2/3 of the way up the sensor
 #define GOAL_VALUE ((int) (2.6 / 5 * 1023))
 #define MID_PWM 175     // 205 has been double checked to just barely hold the magnet with the 1/4 inch spacer - the weight of the spacer was supported separately
                         // This was done with power supply in series, 12.1 volts each side
@@ -41,7 +40,7 @@ void loop() {
         // Really cool. You can clearly see the small fast oscillations build into slower larger ones before it crashes
 //    output = 37.46 * error - 36.9 * last_error + 0.8589 * last_output;   // hump = 240, K = 4
         // Always unstable, medium sized oscillations and then falls
-    output = 18.73 * error - 18.45 * last_error + 0.8589 * last_output;  // hump = 240, K = 2
+//    output = 18.73 * error - 18.45 * last_error + 0.8589 * last_output;  // hump = 240, K = 2
         // Stable! Like, really stable!
 //    output = 74.92 * error - 73.79 * last_error + 0.8589 * last_output;  // hump = 240, K = 8
         // Fast, medium sized oscillations, drops as soon as support is removed
@@ -107,9 +106,6 @@ void loop() {
   }
 
 //  Serial.print("Sensor voltage: "); Serial.println(sensor_value);  // Uncomment for debugging
-//  Serial.print("output: "); Serial.println(output);  // Uncomment for debugging
-//  Serial.print("PWM Value: "); Serial.println(pwm_value);  // Uncomment for debugging
-//  Serial.println();
 
   last_error = error;
   last_output = output;
